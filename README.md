@@ -1,4 +1,7 @@
 MobileViewer
+
+This uses Nvidia's Android Development Kit, which can be found on their developer website (free account required)
+
 ============
 9/29/2014
 Initial commit.
