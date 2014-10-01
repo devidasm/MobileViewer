@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;testapp&apos;&#x0D;&#x0A;- Original project: &apos;testapp&apos;&#x0D;&#x0A;- Original element: &apos;imebra_android.jar&apos;" description="Delete element" element1="libs/imebra_android.jar" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="1" stamp="1412135085044" subPackages="false" version="1.0"/>
+</session>

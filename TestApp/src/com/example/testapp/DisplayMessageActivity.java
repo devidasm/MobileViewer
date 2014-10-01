@@ -1,17 +1,21 @@
 package com.example.testapp;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.os.Build;
+import android.widget.ImageView;
+import dicom.droid.DicomReader;
 
 public class DisplayMessageActivity extends ActionBarActivity {
 	
@@ -19,20 +23,67 @@ public class DisplayMessageActivity extends ActionBarActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-
+	    setContentView(R.layout.fragment_display_message);
 	    // Get the message from the intent
 	    Intent intent = getIntent();
 	    String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-
-	    // Create the text view
-	    TextView textView = new TextView(this);
-	    textView.setTextSize(40);
-	    textView.setText(message);
-
-	    // Set the text view as the activity layout
-	    setContentView(textView);
 	}
-
+	
+	public void onStart()
+	{
+		super.onStart();
+		
+		File imagefile = new File("/sdcard/sample.dcm");
+		byte[] data = new byte[(int) imagefile.length()];
+        FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(imagefile);
+		} catch (FileNotFoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		try {
+			fis = new FileInputStream(imagefile);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+			fis.read(data);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+			fis.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+         
+        //Create a DicomReader with the given data array (data[])
+        DicomReader DR = null;
+		try {
+			DR = new DicomReader(data);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			DR = new DicomReader(data);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        //Retrieve the bitmap from the DicomReader
+        Bitmap sourceImage = DR.getImage();
+        
+        ImageView imagev = (ImageView) findViewById(R.id.imageView1);
+        
+        imagev.setImageBitmap(sourceImage);
+        
+	}
+	
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
