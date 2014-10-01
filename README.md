@@ -26,7 +26,7 @@ TODO:
 ============
 9/30/2014
 
-Got a DICOM decoder to work, right now works with a simple .DCM file. Soon, I'll add so all .DCM files will be viewable that's on the SD card.
+Got a DICOM decoder to work, right now works with a simple .DCM file. Soon, I'll add so all .DCM files will be viewable that's on the SD card. Imebra looks a lot more robust than DicomDroid, but I'll look into both to see which one is better.
 
 Side note on some Android quirks:
 
