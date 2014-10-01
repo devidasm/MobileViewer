@@ -22,3 +22,12 @@ TODO:
 - Look into DICOM libraries for Android
 - Get 2D textures to work, then move onto 3D textures
 - Make some sort of interface that overlays OpenGL ES screen to add switches/scroll bars to add interactivity.
+
+============
+9/30/2014
+
+Got a DICOM decoder to work, right now works with a simple .DCM file. Soon, I'll add so all .DCM files will be viewable that's on the SD card.
+
+Side note on some Android quirks:
+
+Do not add a library as an "external library", for this will allow it to appear fine on the computer, but the library will not be packaged into the APK. Include any libraries that you need into the 'libs' folder and then you can reference anything you need from there. 
