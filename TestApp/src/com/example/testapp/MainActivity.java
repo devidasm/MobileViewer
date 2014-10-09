@@ -60,7 +60,7 @@ public class MainActivity extends ActionBarActivity {
 			
 			for (int i=0; i < fileNames.length; i++)
 			{
-			    if(fileNames[i].matches(".*?[.]txt$"))
+			    if(fileNames[i].matches(".*?[.]dcm$"))
 			    {
 			    	txtFiles.add(fileNames[i]);
 			    }
@@ -76,51 +76,14 @@ public class MainActivity extends ActionBarActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					
-					File sdcard= Environment.getExternalStorageDirectory();
-					//Start up new activity to display file
-					File file = new File(sdcard, txtFiles.get(which));
+					File sdcard = Environment.getExternalStorageDirectory();					
+								    
+				    //Send this text to the new activity
+					Intent intent = new Intent(MainActivity.this, DisplayMessageActivity.class);
+					String filename = sdcard.getPath() + "/" + txtFiles.get(which);
+					intent.putExtra(EXTRA_MESSAGE, filename);
+					startActivity(intent);
 					
-					StringBuilder text = new StringBuilder();
-					
-					try{
-						BufferedReader br = new BufferedReader(new FileReader(file));
-						String line;
-						
-						while ((line = br.readLine()) != null) {
-					        text.append(line);
-					        text.append('\n');
-					    }
-					    br.close();
-					    
-					    //Send this text to the new activity
-						Intent intent = new Intent(MainActivity.this, DisplayMessageActivity.class);
-						String message = text.toString();
-						intent.putExtra(EXTRA_MESSAGE, message);
-						startActivity(intent);
-					    
-					}
-					catch (IOException e){
-						
-						//The device is not readable, so give alert dialog
-						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-						
-						alertDialogBuilder.setTitle("Error");
-						
-						alertDialogBuilder
-										.setMessage("Error Reading File. Click OK to continue")
-										.setCancelable(false)
-										.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-											public void onClick(DialogInterface dialog,int id) {
-												// if this button is clicked, close
-												// current activity
-												dialog.dismiss();
-											}
-										  });
-						
-						AlertDialog alertDialog = alertDialogBuilder.create();
-						alertDialog.show();
-						
-					}
 					
 					
 					

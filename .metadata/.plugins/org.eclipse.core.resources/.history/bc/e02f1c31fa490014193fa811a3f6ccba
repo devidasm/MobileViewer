@@ -1,0 +1,134 @@
+package com.example.testapp;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.dcm4che2.data.DicomElement;
+import org.dcm4che2.data.DicomObject;
+import org.dcm4che2.data.Tag;
+import org.dcm4che2.io.DicomInputStream;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+
+public class DisplayMessageActivity extends ActionBarActivity {
+	String filename;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.fragment_display_message);
+	    // Get the message from the intent
+	    Intent intent = getIntent();
+	    filename = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+	}
+	
+	public void onStart()
+	{
+		super.onStart();
+				
+		
+		DicomObject dcmObj = null;
+		DicomInputStream din = null;
+		try {
+		    din = new DicomInputStream(new File("image.dcm"));
+		    dcmObj = din.readDicomObject();
+		}
+		catch (IOException e) {
+		    e.printStackTrace();
+		    return;
+		}
+		finally {
+			DicomElement data = dcmObj.get(Tag.PixelData);
+			int x = 0;		
+			int c = x;
+		}
+				
+		
+		
+		
+		/*
+		 * DicomDroid example:
+		 * Seems like you can't walk through the frames...
+		 */
+		/*
+		File imagefile = new File(filename);
+		byte[] data = new byte[(int) imagefile.length()];
+        FileInputStream fis = null;
+        DicomReader DR = null;
+        
+		try {
+		
+			fis = new FileInputStream(imagefile);
+			
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+        try {
+        	
+			fis.read(data);
+			fis.close();
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+         
+        //Create a DicomReader with the given data array (data[])
+        
+		try {
+			DR = new DicomReader(data);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        //Retrieve the bitmap from the DicomReader
+		
+        Bitmap sourceImage = DR.getImage();
+        Bitmap sourceImage2 = DR.getImage();       
+        
+        ImageView imagev = (ImageView) findViewById(R.id.imageView1);
+        
+        imagev.setImageBitmap(sourceImage2);
+        */
+               
+	}
+	
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class PlaceholderFragment extends Fragment {
+
+        public PlaceholderFragment() { }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                  Bundle savedInstanceState) {
+              View rootView = inflater.inflate(R.layout.fragment_display_message,
+                      container, false);
+              return rootView;
+        }
+    }
+    
+   
+}

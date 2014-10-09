@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="android.support.v7.appcompat.R"/>
-<fullyQualifiedTypeName name="android.graphics.BitmapFactory"/>
 <fullyQualifiedTypeName name="com.example.testapp.R.layout"/>
 <fullyQualifiedTypeName name="com.imebra.dicom.CodecFactory"/>
 <fullyQualifiedTypeName name="com.imebra.dicom.Image"/>
 <fullyQualifiedTypeName name="com.imebra.dicom.DrawBitmap"/>
 <fullyQualifiedTypeName name="com.imebra.dicom.TransformsChain"/>
 <fullyQualifiedTypeName name="com.example.testapp.R.id"/>
+<fullyQualifiedTypeName name="android.graphics.Bitmap"/>
+<fullyQualifiedTypeName name="org.dcm4che2.imageio.plugins.dcm.DicomImageReadParam"/>
+<fullyQualifiedTypeName name="org.dcm4che2.data.Tag"/>
+<fullyQualifiedTypeName name="android.graphics.BitmapFactory"/>
 </qualifiedTypeNameHistroy>

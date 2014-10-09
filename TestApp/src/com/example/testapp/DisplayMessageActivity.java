@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -18,7 +19,7 @@ import android.widget.ImageView;
 import dicom.droid.DicomReader;
 
 public class DisplayMessageActivity extends ActionBarActivity {
-	
+	String filename;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,62 +27,64 @@ public class DisplayMessageActivity extends ActionBarActivity {
 	    setContentView(R.layout.fragment_display_message);
 	    // Get the message from the intent
 	    Intent intent = getIntent();
-	    String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+	    filename = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 	}
 	
 	public void onStart()
 	{
 		super.onStart();
+				
 		
-		File imagefile = new File("/sdcard/sample.dcm");
+		/*
+		 * DicomDroid example:
+		 * Seems like you can't walk through the frames...
+		 */
+		
+		File imagefile = new File(filename);
 		byte[] data = new byte[(int) imagefile.length()];
         FileInputStream fis = null;
+        DicomReader DR = null;
+        
 		try {
+		
 			fis = new FileInputStream(imagefile);
-		} catch (FileNotFoundException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		try {
-			fis = new FileInputStream(imagefile);
+			
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
         try {
+        	
 			fis.read(data);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-        try {
 			fis.close();
+			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
          
         //Create a DicomReader with the given data array (data[])
-        DicomReader DR = null;
-		try {
-			DR = new DicomReader(data);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+        
 		try {
 			DR = new DicomReader(data);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
         //Retrieve the bitmap from the DicomReader
-        Bitmap sourceImage = DR.getImage();
-        
+        Bitmap sourceImage = DR.getImage();   
+                
         ImageView imagev = (ImageView) findViewById(R.id.imageView1);
+        
+        byte[] d = DR.getPixels();
+       
+        
         
         imagev.setImageBitmap(sourceImage);
         
+               
 	}
 	
     @Override
@@ -111,4 +114,6 @@ public class DisplayMessageActivity extends ActionBarActivity {
               return rootView;
         }
     }
+    
+   
 }

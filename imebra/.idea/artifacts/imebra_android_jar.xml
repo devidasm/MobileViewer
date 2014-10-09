@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="imebra_android:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/imebra_android_jar</output-path>
-    <root id="archive" name="imebra_android.jar">
-      <element id="module-output" name="imebra_android" />
-    </root>
-  </artifact>
-</component>
